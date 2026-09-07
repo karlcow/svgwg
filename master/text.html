@@ -642,6 +642,13 @@
   </p>
 
   <p>
+    If no <a>'text/x'</a> (<a>'text/y'</a>) attribute establishes the
+    initial <a>current text position</a>, then its X (Y) coordinate is
+    <span class="attr-value">0</span> in the current user coordinate
+    system.
+  </p>
+
+  <p>
     A <dfn id="TermBaselineTable" data-dfn-type="dfn" data-export="">baseline-table</dfn> specifies the position of one or more
     baselines in the design space coordinate system. The function of
     the baseline table is to facilitate the alignment of different
@@ -1036,7 +1043,7 @@
 	<tr>
           <td><dfn id="TextElementXAttribute" data-dfn-type="element-attr" data-dfn-for="text" data-export="">x</dfn>, <dfn id="TextElementYAttribute" data-dfn-type="element-attr" data-dfn-for="text" data-export="">y</dfn></td>
           <td>[ [ <a>&lt;length-percentage&gt;</a> | <a>&lt;number&gt;</a> ]+ ]#</td>
-          <td>0 for <a>'text'</a>;<br/> (none) for <a>'tspan'</a></td>
+          <td>(none)</td>
           <td>yes</td>
 	</tr>
       </table>
@@ -1065,7 +1072,7 @@
       </p>
       <p>
 	If more characters exist than <a>&lt;length&gt;</a>s,
-    or if the attribute is not specified on a <a>'tspan'</a>,
+    or if the attribute is not specified,
     then for each additional character:
       </p>
       <ol style="list-style-type: lower-alpha">
@@ -1081,7 +1088,10 @@
 	    the starting X (Y) coordinate for rendering the glyphs
         corresponding to the given character is the X (Y) coordinate
         of the resulting <a>current text position</a> from the most
-        recently rendered glyph for the current <a>'text'</a> element.
+        recently rendered glyph for the current <a>'text'</a> element,
+        or the X (Y) coordinate of the initial <a>current text
+        position</a> if no glyph has yet been rendered for that
+        element.
         </li>
       </ol>
       <p class="note">

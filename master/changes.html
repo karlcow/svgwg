@@ -763,6 +763,14 @@ have been made.</p>
     purposes of text positioning attributes (e.g. counting by Unicode
     code points).
   </li>
+  <li>Changed the initial value of <a>'text/x'</a> and <a>'text/y'</a>
+    on <a>'text'</a> from <span class="attr-value">0</span> to
+    <span class="attr-value">(none)</span>, so that the reflected
+    <a>SVGLengthList</a> is empty when the attribute is absent, as all
+    implementations do. The rendering default moved into the prose on
+    the initial <a>current text position</a>.
+    <a href="https://github.com/w3c/svgwg/issues/1168">Issue #1168</a>
+  </li>
 </ul>
 </div>
 
