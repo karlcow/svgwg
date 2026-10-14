@@ -21,7 +21,7 @@
 <div class="head">
   <p><a href="https://www.w3.org/"><img height="39" width="77" alt="W3C" src="https://www.w3.org/Icons/w3c_home"/></a></p>
   <h1 id="pagetitle">SVG Paths</h1>
-  <h2 id="pagesubtitle">W3C Editor’s Draft <em>13 October 2026</em></h2>
+  <h2 id="pagesubtitle">W3C Editor’s Draft <em>14 October 2026</em></h2>
   <dl>
     <dt>This version:</dt>
     <dd><a href="https://w3c.github.io/svgwg/specs/paths/" class="url">https://w3c.github.io/svgwg/specs/paths/</a></dd>
@@ -63,7 +63,7 @@ publication. Other documents may supersede this document. A list of current W3C
 publications and the latest revision of this technical report can be found in
 the <a href="https://www.w3.org/TR/">W3C technical reports index</a> at https://www.w3.org/TR/</em>.</p>
 
-<p>This document is the 13 October 2026 <strong>Editor’s Draft</strong> of SVG Paths.
+<p>This document is the 14 October 2026 <strong>Editor’s Draft</strong> of SVG Paths.
 The purpose of this specification is to define a number of improved SVG stroking
 features.</p>
 
@@ -1616,13 +1616,22 @@ not the CSS resolved value or any animated value.
       <dt id="__svg__SVGPathElement__getPathSegmentAtLength" class="operation"><a class="idlinterface" href="#InterfaceSVGPathSegment">SVGPathSegment</a>? <b>getPathSegmentAtLength</b>(float <var>distance</var>)</dt>
       <dd class="operation">
         <div>Returns the <a class="idlinterface" href="#InterfaceSVGPathSegment">SVGPathSegment</a> which is <var>distance</var>
-        units along the path, utilizing the user agent's distance-along-a-path
-        algorithm. If <var>distance</var> is NaN, returns null.
-        Otherwise, the <var>distance</var> shall be clamped to the range
+        units along the path given by the base value of the <a class="property" href="https://w3c.github.io/svgwg/svg2-draft/paths.html#DProperty">d</a> attribute,
+        utilizing the user agent's distance-along-a-path algorithm.
+        As with <a href="#__svg__SVGPathData__getPathData">getPathData</a>,
+        this does not reflect CSS computed values or animated values, so the
+        returned segment is one of the segments returned by
+        <a href="#__svg__SVGPathData__getPathData">getPathData</a>
+        without normalization.
+        The <var>distance</var> shall be clamped to the range
         [0, <em>total-length-of-path</em>] before passing it to the distance-along-a-path algorithm.
         If the clamped distance falls exactly on the boundary between two segments,
         the later segment shall be returned.
           <p>If no valid path data exists, returns null.</p>
+          <p class="note">Because <var>distance</var> is a
+          <a href="https://webidl.spec.whatwg.org/#idl-float">float</a>, not an
+          unrestricted float, NaN and infinite values throw a <code>TypeError</code>
+          before these steps run.</p>
         </div>
         <dl class="operation">
           <dt class="parameters-header">Parameters</dt>
