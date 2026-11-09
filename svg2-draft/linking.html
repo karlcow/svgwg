@@ -6,8 +6,8 @@
   <title>Linking — SVG 2</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 49e9fdd4f, updated Tue Oct 13 14:27:53 2026 -0700" name="generator">
-  <meta content="997b6e09e4384fe575f51664277553c33d629e6a" name="revision">
+  <meta content="Bikeshed version e0b165ae4, updated Mon Nov 2 15:16:49 2026 -0800" name="generator">
+  <meta content="c7cfa5792e0678ce56b1cd0fb7324f961934dc02" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -366,14 +366,17 @@ figure.table figcaption:not(.no-marker)::before {
     height: auto;
     max-height: 500px;
     overflow: auto;
+    margin: 0;
     padding: 0.5em 0.75em;
     font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
     white-space: normal; /* in case it's moved into a pre */
+    inset: auto;
+    position-area: bottom span-right;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
 }
-.dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
 .dfn-panel > b { display: block; }
 .dfn-panel a { color: var(--dfnpanel-text); }
@@ -393,6 +396,9 @@ figure.table figcaption:not(.no-marker)::before {
 .dfn-panel.activated {
     display: inline-block;
     position: fixed;
+    position-area: none;
+    top: auto;
+    right: auto;
     left: 8px;
     bottom: 2em;
     margin: 0 auto;
@@ -449,7 +455,8 @@ figure.table figcaption:not(.no-marker)::before {
     opacity: 1;
 }
 
-.dfn-paneled[role="button"] { cursor: help; }
+.dfn-paneled { cursor: help; }
+.dfn-paneled > .dfn-panelbutton { all: unset; }
 
 .highlighted {
     animation: target-fade 3s;
@@ -972,7 +979,7 @@ been deprecated.</p>
 
 One simple way to provide such an XLink namespace declaration
 is to include an <span class="attr-name">‘xmlns’</span> attribute
-for the XLink namespace on the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①⓪⑧">svg</a></code>’</span> element for content that uses
+for the XLink namespace on the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①⓪⑨">svg</a></code>’</span> element for content that uses
 XLink attributes. For example:</p>
 <pre class="xml">&lt;svg xmlns:xlink="http://www.w3.org/1999/xlink" ...>
   &lt;image xlink:href="foo.png" .../>
@@ -1636,11 +1643,11 @@ as follows:</p>
   not contain a "#" character, such as <span class="attr-value">MyDrawing.svg</span>),
   then the initial view into the SVG document is established using the view
   specification attributes (i.e., <span class="attr-name">‘<a data-link-type="element-attr" href="coords.html#ViewBoxAttribute">viewBox</a>’</span>, etc.) on the
-  <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement③⑦">outermost svg element</a>.
+  <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement③⑧">outermost svg element</a>.
      <li>If the SVG fragment identifier addresses a <a href="https://www.w3.org/TR/media-frags/#spacesegment">space segment</a>
   (e.g., <span class="attr-value">MyDrawing.svg#xywh=0,0,100,100</span>),then the initial
   view into the SVG document is established using the view specification attributes
-  on the <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement③⑧">outermost svg element</a> where the 'viewBox' is overriden by the
+  on the <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement③⑨">outermost svg element</a> where the 'viewBox' is overriden by the
   x, y, width and height values provided by the fragment identifier.
   
      <li>Media fragments can be specified as "pixel:" (default) and "percent:". In the latter case the resulting 'viewBox' transformation is
@@ -1659,18 +1666,18 @@ as follows:</p>
   
      <li>If the SVG fragment identifier addresses a <span class="element-name">‘<code><a data-link-type="element" href="#elementdef-view" id="ref-for-elementdef-view①①">view</a></code>’</span> element within
   an SVG document (e.g., <span class="attr-value">MyDrawing.svg#MyView</span>)
-  then the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①⓪⑨">svg</a></code>’</span> element is displayed in the SVG viewport.
+  then the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①⓪">svg</a></code>’</span> element is displayed in the SVG viewport.
   Any view specification attributes included on the given <span class="element-name">‘<code><a data-link-type="element" href="#elementdef-view" id="ref-for-elementdef-view①②">view</a></code>’</span>
   element override the corresponding view specification attributes on the
-  root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①⓪">svg</a></code>’</span> element.
+  root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①①">svg</a></code>’</span> element.
      <li>If the SVG fragment identifier addresses specific SVG view (e.g.,
   <span class="attr-value">MyDrawing.svg#svgView(viewBox(0,200,1000,1000))</span>),
-  then the document fragment defined by the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①①">svg</a></code>’</span>
+  then the document fragment defined by the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①②">svg</a></code>’</span>
   element is displayed in the SVG viewport using the SVG view specification
   provided by the SVG fragment identifier. Parameters of the svgView specification override
-  the parameters defined on the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①②">svg</a></code>’</span> element of the referenced document.
+  the parameters defined on the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①③">svg</a></code>’</span> element of the referenced document.
   Unspecified parameters of the svgView specification don’t reset the values defined on the root
-  <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①③">svg</a></code>’</span> element of the referenced document.
+  <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg①①④">svg</a></code>’</span> element of the referenced document.
      <li>If the SVG fragment identifier addresses a combination of the above
    non-time related identifiers with a time-related identifier (i.e. a timesegment),
   the behavior of each identifier is applied.
@@ -2033,16 +2040,6 @@ let dfnPanelData = {
 
 document.addEventListener("DOMContentLoaded", ()=>{
     genAllDfnPanels();
-
-    document.body.addEventListener("click", (e) => {
-        // If not handled already, just hide all dfn panels.
-        hideAllDfnPanels();
-    });
-});
-
-window.addEventListener("resize", () => {
-    // Pin any visible dfn panel
-    queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>positionDfnPanel(el));
 });
 
 function genAllDfnPanels() {
@@ -2054,16 +2051,17 @@ function genAllDfnPanels() {
             continue;
         }
         dfn.panelData = panelData;
-        insertDfnPopupAction(dfn);
+        genDfnPanel(dfn, panelData);
     }
 }
 
 function genDfnPanel(dfn, { dfnID, url, dfnText, refSections, external }) {
-    const dfnPanel = mk.aside({
-        class: "dfn-panel on",
+    const dfnPanel = mk.dialog({
+        class: "dfn-panel",
         id: `infopanel-for-${dfnID}`,
+        popover: "hint",
         "data-for": dfnID,
-        "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+        "aria-labelledby": `infopaneltitle-for-${dfnID}`,
         },
         mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
             `Info about the '${dfnText}' ${external?"external":""} reference.`),
@@ -2095,106 +2093,34 @@ function genDfnPanel(dfn, { dfnID, url, dfnText, refSections, external }) {
         event.stopPropagation();
         refocusOnTarget(event);
     });
-    dfnPanel.addEventListener('keydown', (event) => {
-        if(event.keyCode == 27) { // Escape key
-            hideDfnPanel({dfnPanel});
-            event.stopPropagation();
-            event.preventDefault();
+
+    dfnPanel.addEventListener('toggle', event=>{
+        if(event.newState == "closed") {
+            unpinDfnPanel(dfnPanel);
         }
     });
 
     dfnPanel.dfn = dfn;
     dfn.dfnPanel = dfnPanel;
+    dfn.after(dfnPanel);
+    const button = mk.button(
+        {
+            class:"dfn-panelbutton",
+            "popovertarget":dfnPanel.id
+        },
+        ...dfn.childNodes
+    );
+    dfn.append(button);
     return dfnPanel;
-}
-
-
-
-function hideAllDfnPanels() {
-    // Delete the currently-active dfn panel.
-    queryAll(".dfn-panel").forEach(dfnPanel=>hideDfnPanel({dfnPanel}));
-}
-
-function showDfnPanel(dfn) {
-    hideAllDfnPanels(); // Only display one at a time.
-
-    dfn.setAttribute("aria-expanded", "true");
-
-    const dfnPanel = genDfnPanel(dfn, dfn.panelData);
-
-    // Give the dfn a unique tabindex, and then
-    // give all the tabbable panel bits successive indexes.
-    let tabIndex = 100;
-    dfn.tabIndex = tabIndex++;
-    const tabbable = dfnPanel.querySelectorAll(":is(a, button)");
-    for (const el of tabbable) {
-        el.tabIndex = tabIndex++;
-    }
-
-    append(document.body, dfnPanel);
-    positionDfnPanel(dfnPanel);
-}
-
-function positionDfnPanel(dfnPanel) {
-    const dfn = dfnPanel.dfn;
-    const dfnPos = getBounds(dfn);
-    dfnPanel.style.top = dfnPos.bottom + "px";
-    dfnPanel.style.left = dfnPos.left + "px";
-
-    const panelPos = dfnPanel.getBoundingClientRect();
-    const panelMargin = 8;
-    const maxRight = document.body.parentNode.clientWidth - panelMargin;
-    if (panelPos.right > maxRight) {
-        const overflowAmount = panelPos.right - maxRight;
-        const newLeft = Math.max(panelMargin, dfnPos.left - overflowAmount);
-        dfnPanel.style.left = newLeft + "px";
-    }
 }
 
 function pinDfnPanel(dfnPanel) {
     // Switch it to "activated" state, which pins it.
     dfnPanel.classList.add("activated");
-    dfnPanel.style.position = "fixed";
-    dfnPanel.style.left = null;
-    dfnPanel.style.top = null;
 }
 
-function hideDfnPanel({dfn, dfnPanel}) {
-    if(!dfnPanel) dfnPanel = dfn.dfnPanel;
-    if(!dfn) dfn = dfnPanel.dfn;
-    dfn.dfnPanel = undefined;
-    dfnPanel.dfn = undefined;
-    dfn.setAttribute("aria-expanded", "false");
-    dfn.tabIndex = undefined;
-    dfnPanel.remove()
-}
-
-function toggleDfnPanel(dfn) {
-    if(dfn.dfnPanel) {
-        hideDfnPanel(dfn);
-    } else {
-        showDfnPanel(dfn);
-    }
-}
-
-function insertDfnPopupAction(dfn) {
-    dfn.setAttribute('role', 'button');
-    dfn.setAttribute('aria-expanded', 'false')
-    dfn.tabIndex = 0;
-    dfn.classList.add('has-dfn-panel');
-    dfn.addEventListener('click', (event) => {
-        toggleDfnPanel(dfn);
-        event.stopPropagation();
-    });
-    dfn.addEventListener('keypress', (event) => {
-        const kc = event.keyCode;
-        // 32->Space, 13->Enter
-        if(kc == 32 || kc == 13) {
-            toggleDfnPanel(dfn);
-            event.stopPropagation();
-            event.preventDefault();
-        }
-    });
+function unpinDfnPanel(dfnPanel) {
+    dfnPanel.classList.remove("activated");
 }
 
 function refocusOnTarget(event) {
@@ -2204,21 +2130,6 @@ function refocusOnTarget(event) {
         // This is needed after browser scrolls to the destination.
         target.focus();
     });
-}
-
-// TODO: shared util
-// Returns the root-level absolute position {left and top} of element.
-function getBounds(el, relativeTo=document.body) {
-    const relativeRect = relativeTo.getBoundingClientRect();
-    const elRect = el.getBoundingClientRect();
-    const top = elRect.top - relativeRect.top;
-    const left = elRect.left - relativeRect.left;
-    return {
-        top,
-        left,
-        bottom: top + elRect.height,
-        right: left + elRect.width,
-    }
 }
 
 function scrollToTargetAndHighlight(event) {

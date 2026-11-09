@@ -6,8 +6,8 @@
   <title>Changes from SVG 1.1 — SVG 2</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 49e9fdd4f, updated Tue Oct 13 14:27:53 2026 -0700" name="generator">
-  <meta content="997b6e09e4384fe575f51664277553c33d629e6a" name="revision">
+  <meta content="Bikeshed version e0b165ae4, updated Mon Nov 2 15:16:49 2026 -0800" name="generator">
+  <meta content="c7cfa5792e0678ce56b1cd0fb7324f961934dc02" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -366,14 +366,17 @@ figure.table figcaption:not(.no-marker)::before {
     height: auto;
     max-height: 500px;
     overflow: auto;
+    margin: 0;
     padding: 0.5em 0.75em;
     font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
     white-space: normal; /* in case it's moved into a pre */
+    inset: auto;
+    position-area: bottom span-right;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
 }
-.dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
 .dfn-panel > b { display: block; }
 .dfn-panel a { color: var(--dfnpanel-text); }
@@ -393,6 +396,9 @@ figure.table figcaption:not(.no-marker)::before {
 .dfn-panel.activated {
     display: inline-block;
     position: fixed;
+    position-area: none;
+    top: auto;
+    right: auto;
     left: 8px;
     bottom: 2em;
     margin: 0 auto;
@@ -449,7 +455,8 @@ figure.table figcaption:not(.no-marker)::before {
     opacity: 1;
 }
 
-.dfn-paneled[role="button"] { cursor: help; }
+.dfn-paneled { cursor: help; }
+.dfn-paneled > .dfn-panelbutton { all: unset; }
 
 .highlighted {
     animation: target-fade 3s;
@@ -904,7 +911,7 @@ have been made.</p>
   since CSSOM defines that for us.
     <li>Removed the getTransformToElement method on
   <code class="idl"><a data-link-type="idl" href="types.html#svggraphicselement" id="ref-for-svggraphicselement②⓪">SVGGraphicsElement</a></code>.
-    <li>Defined that getCTM on an <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement③⑨">outermost svg element</a>
+    <li>Defined that getCTM on an <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement④⓪">outermost svg element</a>
   should work, and listed which transforms it should include.
     <li>Defined attribute reflection in more depth,
   including the effect it has on SVG DOM object liveness.
@@ -990,6 +997,13 @@ have been made.</p>
   
    </ul>
    <ul>
+    <li>Setting <code class="idl"><a data-link-type="idl" href="types.html#__svg__SVGLength__value" id="ref-for-__svg__SVGLength__value⑦">value</a></code> on an <code class="idl"><a data-link-type="idl" href="types.html#svglength" id="ref-for-svglength⑧⑤">SVGLength</a></code> keeps its unit type, and updates
+    <code class="idl"><a data-link-type="idl" href="types.html#__svg__SVGLength__valueInSpecifiedUnits" id="ref-for-__svg__SVGLength__valueInSpecifiedUnits⑥">valueInSpecifiedUnits</a></code> and the reflected attribute to match, as in SVG 1.1.
+    An earlier draft turned the length into a unitless number.
+    <a href="https://github.com/w3c/svgwg/issues/1217">Issue #1217</a>
+  
+   </ul>
+   <ul>
     <li>Changed what happens when a script sets a reflected attribute to a value that is invalid for the content attribute,
     such as a negative number where the attribute requires a non-negative one.
     No exception is raised, and the attribute is treated as it is in markup, as its initial value,
@@ -1006,17 +1020,17 @@ have been made.</p>
     <li>Lifted the restriction on <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-use" id="ref-for-elementdef-use②④③">use</a></code>’</span> not being able to reference an entire document.
     <li>Added <span class="attr-name">‘<code><a data-link-type="element-sub" href="struct.html#LangAttribute" id="ref-for-LangAttribute③⑤">lang</a></code>’</span> attribute on <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-desc" id="ref-for-elementdef-desc①⓪④">desc</a></code>’</span> and <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-title" id="ref-for-elementdef-title①①③">title</a></code>’</span> elements.
     <li>Added section on WAI-ARIA attributes.
-    <li>Clarified that CSS transforms on an <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement④⓪">outermost svg element</a> do not affect <code class="idl"><a data-link-type="idl" href="struct.html#__svg__SVGSVGElement__currentScale" id="ref-for-__svg__SVGSVGElement__currentScale⑦">currentScale</a></code> or <code class="idl"><a data-link-type="idl" href="struct.html#__svg__SVGSVGElement__currentTranslate" id="ref-for-__svg__SVGSVGElement__currentTranslate⑧">currentTranslate</a></code>. Defined the returned values on <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑤">svg</a></code>’</span> elements that are not <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement④①">outermost svg element</a>.
+    <li>Clarified that CSS transforms on an <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement④①">outermost svg element</a> do not affect <code class="idl"><a data-link-type="idl" href="struct.html#__svg__SVGSVGElement__currentScale" id="ref-for-__svg__SVGSVGElement__currentScale⑦">currentScale</a></code> or <code class="idl"><a data-link-type="idl" href="struct.html#__svg__SVGSVGElement__currentTranslate" id="ref-for-__svg__SVGSVGElement__currentTranslate⑧">currentTranslate</a></code>. Defined the returned values on <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑥">svg</a></code>’</span> elements that are not <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement④②">outermost svg element</a>.
     <li>Deprecated the <code class="idl"><a data-link-type="idl" href="struct.html#__svg__SVGDocument__rootElement" id="ref-for-__svg__SVGDocument__rootElement②">rootElement</a></code> attribute.
-    <li>Defined event handler content attributes and IDL attributes on the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑥">svg</a></code>’</span> element to be for events fired at the <a class="idlinterface" href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window</a>, like HTML’s event handler content attributes and IDL attribute on <code>body</code>.
+    <li>Defined event handler content attributes and IDL attributes on the root <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑦">svg</a></code>’</span> element to be for events fired at the <a class="idlinterface" href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window</a>, like HTML’s event handler content attributes and IDL attribute on <code>body</code>.
     <li>Moved the <span class="element-name">‘<code><a data-link-type="element" href="embedded.html#elementdef-image" id="ref-for-elementdef-image①⑧⓪">image</a></code>’</span> element to the <a href="embedded.html">Embedded Content chapter</a>.
     <li>Removed the <code>SVGElementInstance</code> and <code>SVGElementInstanceList</code> interfaces, and the corresponding attributes on the <code class="idl"><a data-link-type="idl" href="struct.html#svguseelement" id="ref-for-svguseelement④">SVGUseElement</a></code> interface.
     <li>Changed the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-use" id="ref-for-elementdef-use②④④">use</a></code>’</span> element event flow to follow the Shadow DOM spec.
     <li>Clarified that the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-switch" id="ref-for-elementdef-switch①④⑦">switch</a></code>’</span> element does not affect processing of <span class="element-name">‘<code><a data-link-type="element" href="interact.html#elementdef-script" id="ref-for-elementdef-script①①⑦">script</a></code>’</span> elements.
-    <li>Made the <span class="attr-name">‘width’</span> and <span class="attr-name">‘height’</span> attributes on the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑦">svg</a></code>’</span> element presentation attributes, and changed the initial value to
+    <li>Made the <span class="attr-name">‘width’</span> and <span class="attr-name">‘height’</span> attributes on the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑧">svg</a></code>’</span> element presentation attributes, and changed the initial value to
       <span class="attr-value">auto</span>.
   
-    <li>Removed the <span class="attr-name">baseProfile</span> and <span class="attr-name">version</span> attributes from the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑧">svg</a></code>’</span> element.
+    <li>Removed the <span class="attr-name">baseProfile</span> and <span class="attr-name">version</span> attributes from the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑨">svg</a></code>’</span> element.
     <li>Deprecated the <code class="idl"><a data-link-type="idl" href="struct.html#__svg__SVGSVGElement__forceRedraw" id="ref-for-__svg__SVGSVGElement__forceRedraw①">forceRedraw</a></code> method on the <code class="idl"><a data-link-type="idl" href="struct.html#svgsvgelement" id="ref-for-svgsvgelement①⑤">SVGSVGElement</a></code> interface and defined it to have no effect when called.
     <li>Defined the
   <code class="idl"><a data-link-type="idl" href="struct.html#__svg__SVGSVGElement__deselectAll" id="ref-for-__svg__SVGSVGElement__deselectAll①">deselectAll</a></code> method
@@ -1095,7 +1109,7 @@ have been made.</p>
    </ul>
    <div class="changed-since-cr1">
     <ul>
-     <li>Corrected incorrect interface name for definition of <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/svgwg/svg2-draft/struct.html#InterfaceSVGUseElementShadowRoot" id="ref-for-InterfaceSVGUseElementShadowRoot">SVGUseElementShadowRoot</a></code>.
+     <li>Corrected incorrect interface name for definition of <code class="idl"><u class="link-error" data-lt="SVGUseElementShadowRoot" title="LINK ERROR: No &apos;idl&apos; refs found for &apos;SVGUseElementShadowRoot&apos;.">SVGUseElementShadowRoot</u></code>.
     <a href="https://github.com/w3c/svgwg/issues/290">Issue discussion</a>
     <a href="https://github.com/w3c/svgwg/pull/296">Edits</a>
     </ul>
@@ -1200,7 +1214,7 @@ have been made.</p>
   <a class="property" href="geometry.html#Sizing">height</a> property values of <span class="prop-value">auto</span>
   are computed to <span class="prop-value">0</span> for SVG elements that
   the properties apply to.
-    <li>auto equates to 100% for width and height on the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②④⑨">svg</a></code>’</span> element, and to auto-sizing for images.
+    <li>auto equates to 100% for width and height on the <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②⑤⓪">svg</a></code>’</span> element, and to auto-sizing for images.
     <li>Remove <span class="element-name">‘<a data-link-type="element" href="https://drafts.csswg.org/css-masking-1/#MaskElement">mask</a>’</span> from the list of elements where width and height are sizing properties.
     <li>Clarify that width and height sizing properties
   can be constrained with the corresponding max/min properties.
@@ -1219,6 +1233,12 @@ have been made.</p>
     <li><a class="css property" data-link-type="property" href="coords.html#VectorEffectProperty" id="ref-for-VectorEffectProperty①⑧">vector-effect</a> has no effect within a <a href="https://drafts.csswg.org/css-transforms-2/#3d-rendering-contexts">3d rendering context</a>.
     <li>Define SVG sizing in CSS contexts with reference to the CSS <a href="https://www.w3.org/TR/css3-images/#default-sizing-algorithm">Default Sizing Algorithm</a>.
     <li>Clarify that percentages are relative to the width and height of the specified viewBox.
+    <li>Restore the SVG 1.1 statement that one <span class="prop-value">px</span> unit is equal to one user unit.
+  The other absolute units are the multiples of <span class="prop-value">px</span> defined in CSS Values and Units.
+  <a href="https://github.com/w3c/svgwg/issues/1216">Issue #1216</a>
+    <li>Define that an SVG used as an image, with no <span class="attr-name">‘viewBox’</span> and with a width and a height specified,
+  gets a viewBox synthesized from the width and height.
+  <a href="https://github.com/w3c/svgwg/issues/249">Issue #249</a>
     <li>Mark unimplemented <a class="css property" data-link-type="property" href="coords.html#VectorEffectProperty" id="ref-for-VectorEffectProperty①⑨">vector-effect</a> options at-risk.
     <div class="changed-since-cr1 cr2 cr3">
      <li>Adapt <a class="css property" data-link-type="property" href="coords.html#VectorEffectProperty" id="ref-for-VectorEffectProperty②⓪">vector-effect</a> host coordinate space definition to actual implemented behavior. Remove screen and viewport values.
@@ -1342,6 +1362,11 @@ have been made.</p>
     offset distances should be measured in the text element’s coordinate system,
     not the path element’s.
   
+    <li>Say that text on a path is laid out again when the element referenced by the
+    <span class="attr-name">‘href’</span> attribute of a <span class="element-name">‘textPath’</span>
+    element, or an attribute or property that determines its path, changes.
+    <a href="https://github.com/w3c/svgwg/issues/1212">Issue #1212</a>
+  
    </ul>
    <div class="changed-since-cr1">
     <ul>
@@ -1443,6 +1468,16 @@ have been made.</p>
     <li>Added the <a class="css property" data-link-type="property" href="painting.html#PaintOrderProperty" id="ref-for-PaintOrderProperty⑨">paint-order</a> property.
     <li>Moved the <span class="property">color-interpolation-filters</span> property
   to the Filter Effects specification.
+    <li>Removed <a href="render.html#PaintersModel">compositing and blending</a>
+  from the list of operations that <a class="css property" data-link-type="property" href="painting.html#ColorInterpolationProperty" id="ref-for-ColorInterpolationProperty⑨">color-interpolation</a> affects, and
+  defined the values of the property by reference to the
+  <a href="https://drafts.csswg.org/css-color-4/#interpolation-color-space">interpolation
+  color space</a> definitions of CSS Color 4.
+  [<a href="refs.html#ref-css-color-4">css-color-4</a>]
+    <li>Added <a href="https://drafts.csswg.org/css-color-4/#color-interpolation-method">&lt;color-interpolation-method></a> to the values of
+  <a class="css property" data-link-type="property" href="painting.html#ColorInterpolationProperty" id="ref-for-ColorInterpolationProperty①⓪">color-interpolation</a>, so that an author can ask for any of the
+  interpolation color spaces of CSS Color 4 and not only the two sRGB ones.
+  [<a href="refs.html#ref-css-color-4">css-color-4</a>]
     <li>Added the <span class="prop-value">context-fill</span> and <span class="prop-value">context-stroke</span>
   paint values.
     <li>Allowed <a href="painting.html#SpecifyingPaint">&lt;paint></a> values and marker properties to take the
@@ -1510,6 +1545,10 @@ have been made.</p>
     <li>Added the solidcolor element and its two properties solid-color
     and solid-opacity, ported over from SVG Tiny 1.2. (Renamed 'solidColor' to
   'solidcolor'.)
+    <li>Said that gradient stop interpolation happens in the interpolation color
+  space given by <a class="css property" data-link-type="property" href="painting.html#ColorInterpolationProperty" id="ref-for-ColorInterpolationProperty①①">color-interpolation</a>, which is now defined by
+  reference to CSS Color 4.
+  [<a href="refs.html#ref-css-color-4">css-color-4</a>]
     <li>Added an <span class="attr-name">‘<a data-link-type="element-attr" href="pservers.html#RadialGradientElementFRAttribute">fr</a>’</span> attribute to the <span class="element-name">‘<code><a data-link-type="element" href="pservers.html#elementdef-radialGradient" id="ref-for-elementdef-radialGradient①①⑥">radialGradient</a></code>’</span> element,
   which allows specifying the radius of the focal circle.
     <li>Added a section for mesh gradients, defining the mesh, meshrow
@@ -1569,7 +1608,7 @@ have been made.</p>
   functional form.
     <li>Added the <span class="prop-value">bounding-box</span> keyword to <a class="css property" data-link-type="property" href="interact.html#PointerEventsProperty" id="ref-for-PointerEventsProperty①②">pointer-events</a>.
     <li>Replaced SVGLoad, SVGAbort, SVGError and SVGUnload with load, abort, error and unload respectively.
-    <li>Required that only <a data-link-type="dfn" href="struct.html#TermStructurallyExternalElement" id="ref-for-TermStructurallyExternalElement⑧">structurally external elements</a> and the <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement④②">outermost svg element</a> must fire load events.
+    <li>Required that only <a data-link-type="dfn" href="struct.html#TermStructurallyExternalElement" id="ref-for-TermStructurallyExternalElement⑧">structurally external elements</a> and the <a data-link-type="dfn" href="struct.html#TermOutermostSVGElement" id="ref-for-TermOutermostSVGElement④③">outermost svg element</a> must fire load events.
     <li>Replaced SVGResize and SVGScroll with resize and scroll respectively.
     <li>Removed DOMActivate.
     <li>Replaced DOMFocusIn and DOMFocusOut with focusin and focusout, and added the blur event.
@@ -1628,7 +1667,7 @@ have been made.</p>
   fragments are interpreted.
     <li>Made linking to <span class="element-name">‘<code><a data-link-type="element" href="linking.html#elementdef-view" id="ref-for-elementdef-view①③④">view</a></code>’</span> elements not
   cause an implicit view box transformation to show the nearest ancestor
-  <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②⑤⓪">svg</a></code>’</span> element.
+  <span class="element-name">‘<code><a data-link-type="element" href="struct.html#elementdef-svg" id="ref-for-elementdef-svg②⑤①">svg</a></code>’</span> element.
     <li>Clarified that unspecified SVG view fragment
   parameters do not cause the corresponding attributes to be reset to their
   initial values.
@@ -2073,16 +2112,6 @@ let dfnPanelData = {
 
 document.addEventListener("DOMContentLoaded", ()=>{
     genAllDfnPanels();
-
-    document.body.addEventListener("click", (e) => {
-        // If not handled already, just hide all dfn panels.
-        hideAllDfnPanels();
-    });
-});
-
-window.addEventListener("resize", () => {
-    // Pin any visible dfn panel
-    queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>positionDfnPanel(el));
 });
 
 function genAllDfnPanels() {
@@ -2094,16 +2123,17 @@ function genAllDfnPanels() {
             continue;
         }
         dfn.panelData = panelData;
-        insertDfnPopupAction(dfn);
+        genDfnPanel(dfn, panelData);
     }
 }
 
 function genDfnPanel(dfn, { dfnID, url, dfnText, refSections, external }) {
-    const dfnPanel = mk.aside({
-        class: "dfn-panel on",
+    const dfnPanel = mk.dialog({
+        class: "dfn-panel",
         id: `infopanel-for-${dfnID}`,
+        popover: "hint",
         "data-for": dfnID,
-        "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+        "aria-labelledby": `infopaneltitle-for-${dfnID}`,
         },
         mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
             `Info about the '${dfnText}' ${external?"external":""} reference.`),
@@ -2135,106 +2165,34 @@ function genDfnPanel(dfn, { dfnID, url, dfnText, refSections, external }) {
         event.stopPropagation();
         refocusOnTarget(event);
     });
-    dfnPanel.addEventListener('keydown', (event) => {
-        if(event.keyCode == 27) { // Escape key
-            hideDfnPanel({dfnPanel});
-            event.stopPropagation();
-            event.preventDefault();
+
+    dfnPanel.addEventListener('toggle', event=>{
+        if(event.newState == "closed") {
+            unpinDfnPanel(dfnPanel);
         }
     });
 
     dfnPanel.dfn = dfn;
     dfn.dfnPanel = dfnPanel;
+    dfn.after(dfnPanel);
+    const button = mk.button(
+        {
+            class:"dfn-panelbutton",
+            "popovertarget":dfnPanel.id
+        },
+        ...dfn.childNodes
+    );
+    dfn.append(button);
     return dfnPanel;
-}
-
-
-
-function hideAllDfnPanels() {
-    // Delete the currently-active dfn panel.
-    queryAll(".dfn-panel").forEach(dfnPanel=>hideDfnPanel({dfnPanel}));
-}
-
-function showDfnPanel(dfn) {
-    hideAllDfnPanels(); // Only display one at a time.
-
-    dfn.setAttribute("aria-expanded", "true");
-
-    const dfnPanel = genDfnPanel(dfn, dfn.panelData);
-
-    // Give the dfn a unique tabindex, and then
-    // give all the tabbable panel bits successive indexes.
-    let tabIndex = 100;
-    dfn.tabIndex = tabIndex++;
-    const tabbable = dfnPanel.querySelectorAll(":is(a, button)");
-    for (const el of tabbable) {
-        el.tabIndex = tabIndex++;
-    }
-
-    append(document.body, dfnPanel);
-    positionDfnPanel(dfnPanel);
-}
-
-function positionDfnPanel(dfnPanel) {
-    const dfn = dfnPanel.dfn;
-    const dfnPos = getBounds(dfn);
-    dfnPanel.style.top = dfnPos.bottom + "px";
-    dfnPanel.style.left = dfnPos.left + "px";
-
-    const panelPos = dfnPanel.getBoundingClientRect();
-    const panelMargin = 8;
-    const maxRight = document.body.parentNode.clientWidth - panelMargin;
-    if (panelPos.right > maxRight) {
-        const overflowAmount = panelPos.right - maxRight;
-        const newLeft = Math.max(panelMargin, dfnPos.left - overflowAmount);
-        dfnPanel.style.left = newLeft + "px";
-    }
 }
 
 function pinDfnPanel(dfnPanel) {
     // Switch it to "activated" state, which pins it.
     dfnPanel.classList.add("activated");
-    dfnPanel.style.position = "fixed";
-    dfnPanel.style.left = null;
-    dfnPanel.style.top = null;
 }
 
-function hideDfnPanel({dfn, dfnPanel}) {
-    if(!dfnPanel) dfnPanel = dfn.dfnPanel;
-    if(!dfn) dfn = dfnPanel.dfn;
-    dfn.dfnPanel = undefined;
-    dfnPanel.dfn = undefined;
-    dfn.setAttribute("aria-expanded", "false");
-    dfn.tabIndex = undefined;
-    dfnPanel.remove()
-}
-
-function toggleDfnPanel(dfn) {
-    if(dfn.dfnPanel) {
-        hideDfnPanel(dfn);
-    } else {
-        showDfnPanel(dfn);
-    }
-}
-
-function insertDfnPopupAction(dfn) {
-    dfn.setAttribute('role', 'button');
-    dfn.setAttribute('aria-expanded', 'false')
-    dfn.tabIndex = 0;
-    dfn.classList.add('has-dfn-panel');
-    dfn.addEventListener('click', (event) => {
-        toggleDfnPanel(dfn);
-        event.stopPropagation();
-    });
-    dfn.addEventListener('keypress', (event) => {
-        const kc = event.keyCode;
-        // 32->Space, 13->Enter
-        if(kc == 32 || kc == 13) {
-            toggleDfnPanel(dfn);
-            event.stopPropagation();
-            event.preventDefault();
-        }
-    });
+function unpinDfnPanel(dfnPanel) {
+    dfnPanel.classList.remove("activated");
 }
 
 function refocusOnTarget(event) {
@@ -2244,21 +2202,6 @@ function refocusOnTarget(event) {
         // This is needed after browser scrolls to the destination.
         target.focus();
     });
-}
-
-// TODO: shared util
-// Returns the root-level absolute position {left and top} of element.
-function getBounds(el, relativeTo=document.body) {
-    const relativeRect = relativeTo.getBoundingClientRect();
-    const elRect = el.getBoundingClientRect();
-    const top = elRect.top - relativeRect.top;
-    const left = elRect.left - relativeRect.left;
-    return {
-        top,
-        left,
-        bottom: top + elRect.height,
-        right: left + elRect.width,
-    }
 }
 
 function scrollToTargetAndHighlight(event) {
@@ -2462,6 +2405,7 @@ let refsData = {
 "linking.html#AElementPingAttribute": {"displayText":"ping","export":true,"for_":["a"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"ping","type":"element-attr","url":"linking.html#AElementPingAttribute"},
 "linking.html#AElementReferrerpolicyAttribute": {"displayText":"referrerpolicy","export":true,"for_":["a"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"referrerpolicy","type":"element-attr","url":"linking.html#AElementReferrerpolicyAttribute"},
 "linking.html#AElementTargetAttribute": {"displayText":"target","export":true,"for_":["a"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"target","type":"element-attr","url":"linking.html#AElementTargetAttribute"},
+"painting.html#ColorInterpolationProperty": {"displayText":"color-interpolation","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"color-interpolation","type":"property","url":"painting.html#ColorInterpolationProperty"},
 "paths.html#DProperty": {"displayText":"d","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"d","type":"property","url":"paths.html#DProperty"},
 "painting.html#FillProperty": {"displayText":"fill","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"fill","type":"property","url":"painting.html#FillProperty"},
 "struct.html#IDAttribute": {"displayText":"id","export":true,"for_":["core-attributes"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"id","type":"element-attr","url":"struct.html#IDAttribute"},
@@ -2516,6 +2460,8 @@ let refsData = {
 "types.html#__svg__SVGGeometryElement__getTotalLength": {"displayText":"getTotalLength()","export":true,"for_":["SVGGeometryElement"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"getTotalLength()","type":"method","url":"types.html#__svg__SVGGeometryElement__getTotalLength"},
 "types.html#__svg__SVGGeometryElement__pathLength": {"displayText":"pathLength","export":true,"for_":["SVGGeometryElement"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"pathLength","type":"attribute","url":"types.html#__svg__SVGGeometryElement__pathLength"},
 "types.html#__svg__SVGGraphicsElement__getBBox": {"displayText":"getBBox(options)","export":true,"for_":["SVGGraphicsElement"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"getBBox(options)","type":"method","url":"types.html#__svg__SVGGraphicsElement__getBBox"},
+"types.html#__svg__SVGLength__value": {"displayText":"value","export":true,"for_":["SVGLength"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"value","type":"attribute","url":"types.html#__svg__SVGLength__value"},
+"types.html#__svg__SVGLength__valueInSpecifiedUnits": {"displayText":"valueInSpecifiedUnits","export":true,"for_":["SVGLength"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"valueInSpecifiedUnits","type":"attribute","url":"types.html#__svg__SVGLength__valueInSpecifiedUnits"},
 "types.html#__svg__SVGNameList__getItem": {"displayText":"getItem(index)","export":true,"for_":["SVGLengthList","SVGNumberList","SVGPointList","SVGStringList","SVGTransformList"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"getItem(index)","type":"method","url":"types.html#__svg__SVGNameList__getItem"},
 "struct.html#__svg__SVGSVGElement__currentScale": {"displayText":"currentScale","export":true,"for_":["SVGSVGElement"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"currentScale","type":"attribute","url":"struct.html#__svg__SVGSVGElement__currentScale"},
 "struct.html#__svg__SVGSVGElement__currentTranslate": {"displayText":"currentTranslate","export":true,"for_":["SVGSVGElement"],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"currentTranslate","type":"attribute","url":"struct.html#__svg__SVGSVGElement__currentTranslate"},
@@ -2555,6 +2501,7 @@ let refsData = {
 "types.html#svggeometryelement": {"displayText":"SVGGeometryElement","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"SVGGeometryElement","type":"interface","url":"types.html#svggeometryelement"},
 "pservers.html#svggradientelement": {"displayText":"SVGGradientElement","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"SVGGradientElement","type":"interface","url":"pservers.html#svggradientelement"},
 "types.html#svggraphicselement": {"displayText":"SVGGraphicsElement","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"SVGGraphicsElement","type":"interface","url":"types.html#svggraphicselement"},
+"types.html#svglength": {"displayText":"SVGLength","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"SVGLength","type":"interface","url":"types.html#svglength"},
 "types.html#svglengthlist": {"displayText":"SVGLengthList","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"SVGLengthList","type":"interface","url":"types.html#svglengthlist"},
 "paths.html#svgpathelement": {"displayText":"SVGPathElement","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"SVGPathElement","type":"interface","url":"paths.html#svgpathelement"},
 "pservers.html#svgpatternelement": {"displayText":"SVGPatternElement","export":true,"for_":[],"level":"","normative":true,"shortname":"svg2","spec":"svg2","status":"local","text":"SVGPatternElement","type":"interface","url":"pservers.html#svgpatternelement"},
@@ -2574,7 +2521,6 @@ let refsData = {
 "https://drafts.csswg.org/geometry-1/#domrect": {"displayText":"SVGRect","export":true,"for_":[],"level":"1","normative":true,"shortname":"geometry","spec":"geometry-1","status":"anchor-block","text":"SVGRect","type":"interface","url":"https://drafts.csswg.org/geometry-1/#domrect"},
 "https://html.spec.whatwg.org/multipage/dom.html#htmlorsvgelement": {"displayText":"HTMLOrSVGOrMathMLElement","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"HTMLOrSVGOrMathMLElement","type":"interface","url":"https://html.spec.whatwg.org/multipage/dom.html#htmlorsvgelement"},
 "https://html.spec.whatwg.org/multipage/webappapis.html#globaleventhandlers": {"displayText":"GlobalEventHandlers","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"GlobalEventHandlers","type":"interface","url":"https://html.spec.whatwg.org/multipage/webappapis.html#globaleventhandlers"},
-"https://w3c.github.io/svgwg/svg2-draft/struct.html#InterfaceSVGUseElementShadowRoot": {"displayText":"SVGUseElementShadowRoot","export":true,"for_":[],"level":"2","normative":true,"shortname":"svg","spec":"svg2","status":"current","text":"SVGUseElementShadowRoot","type":"interface","url":"https://w3c.github.io/svgwg/svg2-draft/struct.html#InterfaceSVGUseElementShadowRoot"},
 "https://www.w3.org/TR/cssom-1/#the-linkstyle-interface": {"displayText":"LinkStyle","export":true,"for_":[],"level":"1","normative":true,"shortname":"cssom","spec":"cssom-1","status":"anchor-block","text":"LinkStyle","type":"interface","url":"https://www.w3.org/TR/cssom-1/#the-linkstyle-interface"},
 };
 
